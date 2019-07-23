@@ -3,7 +3,7 @@ import api from '~/services/api';
 
 import CatalogActions from '~/store/ducks/catalog';
 
-export function* load() {
+export function* loadCategories() {
   try {
     const response = yield call(api.get, 'categories');
 
@@ -16,5 +16,15 @@ export function* load() {
     yield put(CatalogActions.loadCategoriesSuccess(response.data));
   } catch (error) {
     yield put(CatalogActions.loadCategoriesFailure());
+  }
+}
+
+export function* loadProducts({ categoryId }) {
+  try {
+    const response = yield call(api.get, `/category_products/${categoryId}`);
+
+    yield put(CatalogActions.loadProductsSuccess(response.data));
+  } catch (error) {
+    yield put(CatalogActions.loadProductsFailure());
   }
 }

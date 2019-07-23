@@ -22,6 +22,7 @@ export default Creators;
  */
 export const INITIAL_STATE = Immutable({
   categories: [],
+  products: [],
   selectedCategory: null,
 });
 
@@ -32,4 +33,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOAD_CATEGORIES_SUCCESS]: (state, { data }) => state.merge({ categories: data }),
 
   [Types.LOAD_PRODUCTS_REQUEST]: (state, { categoryId }) => state.merge({ selectedCategory: categoryId }),
+  [Types.LOAD_PRODUCTS_SUCCESS]: (state, { data }) => state.merge({ products: data.products }),
 });

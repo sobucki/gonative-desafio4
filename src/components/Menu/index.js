@@ -12,6 +12,8 @@ import {
 class Menu extends Component {
   static propTypes = {
     loadCategoriesRequest: PropTypes.func.isRequired,
+    loadProductsRequest: PropTypes.func.isRequired,
+    selectedCategory: PropTypes.number,
     categories: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -20,10 +22,20 @@ class Menu extends Component {
     ).isRequired,
   };
 
+  static defaultProps = {
+    selectedCategory: 0,
+  };
+
   componentDidMount() {
     const { loadCategoriesRequest } = this.props;
 
     loadCategoriesRequest();
+  }
+
+  loadProductsByCategory(categoryId) {
+    const { loadProductsRequest } = this.props;
+
+    loadProductsRequest(categoryId);
   }
 
   render() {
@@ -34,7 +46,10 @@ class Menu extends Component {
           data={categories}
           keyExtractor={category => String(category.id)}
           renderItem={({ item }) => (
-            <ButtonMenu selected={selectedCategory && selectedCategory === item.id}>
+            <ButtonMenu
+              onPress={() => this.loadProductsByCategory(item.id)}
+              selected={selectedCategory && selectedCategory === item.id}
+            >
               <TextButton>{String(item.title).toUpperCase()}</TextButton>
             </ButtonMenu>
           )}

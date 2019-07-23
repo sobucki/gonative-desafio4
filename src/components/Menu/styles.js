@@ -8,13 +8,12 @@ export const ScrollMenu = styled.ScrollView.attrs({
   showsHorizontalScrollIndicator: false,
 })`
   height: 60px;
+  background-color: ${colors.primary};
 `;
 
 export const MenuList = styled.FlatList.attrs({
   horizontal: true,
-})`
-  background-color: ${colors.primary};
-`;
+})``;
 
 export const ButtonMenu = styled.TouchableOpacity`
   height: 100%;
