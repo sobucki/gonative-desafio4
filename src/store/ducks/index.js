@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { reducer as categories } from './categories';
+import { reducer as catalog } from './catalog';
 
-export default combineReducers({ categories });
+export default combineReducers({ catalog });

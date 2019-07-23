@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CategoriesAction from '~/store/ducks/categories';
+import CatalogAction from '~/store/ducks/catalog';
 
 import {
   ScrollMenu, MenuList, ButtonMenu, TextButton,
@@ -11,30 +11,30 @@ import {
 
 class Menu extends Component {
   static propTypes = {
-    loadRequest: PropTypes.func.isRequired,
-    categories: PropTypes.shape({
-      data: PropTypes.arrayOf({
-        id: PropTypes.string,
+    loadCategoriesRequest: PropTypes.func.isRequired,
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
         title: PropTypes.string,
       }),
-    }).isRequired,
+    ).isRequired,
   };
 
   componentDidMount() {
-    const { loadRequest } = this.props;
+    const { loadCategoriesRequest } = this.props;
 
-    loadRequest();
+    loadCategoriesRequest();
   }
 
   render() {
-    const { categories } = this.props;
+    const { categories, selectedCategory } = this.props;
     return (
       <ScrollMenu>
         <MenuList
-          data={categories.data}
+          data={categories}
           keyExtractor={category => String(category.id)}
           renderItem={({ item }) => (
-            <ButtonMenu>
+            <ButtonMenu selected={selectedCategory && selectedCategory === item.id}>
               <TextButton>{String(item.title).toUpperCase()}</TextButton>
             </ButtonMenu>
           )}
@@ -45,10 +45,11 @@ class Menu extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories,
+  categories: state.catalog.categories,
+  selectedCategory: state.catalog.selectedCategory,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(CategoriesAction, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(CatalogAction, dispatch);
 
 export default connect(
   mapStateToProps,

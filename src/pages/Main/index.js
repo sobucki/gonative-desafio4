@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import Menu from '~/components/Menu';
 
-import CategoriesAction from '~/store/ducks/categories';
+import CatalogAction from '~/store/ducks/catalog';
 
 import {
   Container,
@@ -140,10 +140,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories,
+  catalog: state.catalog,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(CategoriesAction, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(CatalogAction, dispatch);
 
 export default connect(
   mapStateToProps,

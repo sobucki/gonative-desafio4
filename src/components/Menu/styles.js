@@ -24,6 +24,7 @@ export const ButtonMenu = styled.TouchableOpacity`
   padding: ${metrics.basePadding}px;
   border-color: #fff;
   margin-left: ${metrics.baseMargin}px;
+  border-bottom-width: ${({ selected }) => (selected ? 5 : 0)};
 `;
 
 export const TextButton = styled.Text`
