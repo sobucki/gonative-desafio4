@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
-import { ScrollView, FlatList } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
-  Container, MenuList, ButtonMenu, TextButton, ScrollMenu,
+  Container,
+  Header,
+  HeaderTitle,
+  MenuList,
+  ButtonMenu,
+  TextButton,
+  ScrollMenu,
+  ItemList,
+  ItemFolder,
+  ImageItem,
+  ItemName,
+  ItemBrand,
+  ItemPrice,
 } from './styles';
 
 const categories = [
@@ -129,17 +141,10 @@ export default class Main extends Component {
   render() {
     return (
       <Container>
-        <View
-          style={{
-            height: 60,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>GoCommerce</Text>
-        </View>
-        <ScrollMenu horizontal showsHorizontalScrollIndicator={false}>
+        <Header>
+          <HeaderTitle>GoCommerce</HeaderTitle>
+        </Header>
+        <ScrollMenu>
           <MenuList
             data={categories}
             keyExtractor={category => String(category.id)}
@@ -150,32 +155,17 @@ export default class Main extends Component {
             )}
           />
         </ScrollMenu>
-        {/*
-         */}
-        <FlatList
-          style={{ backgroundColor: '#ccc' }}
-          columnWrapperStyle={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly' }}
+
+        <ItemList
           data={products}
-          numColumns={2}
           keyExtractor={product => String(product.id)}
           renderItem={({ item }) => (
-            <View
-              style={{
-                // display: 'flex',
-                // alignItems: 'flex-start',
-                // flexDirection: 'column',
-                padding: 20,
-                width: 150,
-                backgroundColor: '#fff',
-                margin: 10,
-                // flex: 0.5,
-              }}
-            >
-              <Image source={{ uri: item.image }} style={{ width: null, height: 200 }} />
-              <Text>{String(item.brand)}</Text>
-              <Text>{String(item.name)}</Text>
-              <Text>{String(item.price)}</Text>
-            </View>
+            <ItemFolder>
+              <ImageItem source={{ uri: item.image }} />
+              <ItemName>{item.brand}</ItemName>
+              <ItemBrand>{item.name}</ItemBrand>
+              <ItemPrice>{item.price}</ItemPrice>
+            </ItemFolder>
           )}
         />
       </Container>
