@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import Menu from '~/components/Menu';
+
+import CategoriesAction from '~/store/ducks/categories';
+
 import {
   Container,
   Header,
   HeaderTitle,
-  MenuList,
-  ButtonMenu,
-  TextButton,
-  ScrollMenu,
   ItemList,
   ItemFolder,
   ImageItem,
@@ -16,33 +18,6 @@ import {
   ItemBrand,
   ItemPrice,
 } from './styles';
-
-const categories = [
-  {
-    id: 1,
-    title: 'Camisetas',
-  },
-  {
-    id: 2,
-    title: 'Camisas',
-  },
-  {
-    id: 3,
-    title: 'Calças',
-  },
-  {
-    id: 4,
-    title: 'Blusas',
-  },
-  {
-    id: 5,
-    title: 'Bonés',
-  },
-  {
-    id: 6,
-    title: 'Casacos',
-  },
-];
 
 const products = [
   {
@@ -135,7 +110,7 @@ const products = [
   },
 ];
 
-export default class Main extends Component {
+class Main extends Component {
   componentDidMount() {}
 
   render() {
@@ -144,17 +119,8 @@ export default class Main extends Component {
         <Header>
           <HeaderTitle>GoCommerce</HeaderTitle>
         </Header>
-        <ScrollMenu>
-          <MenuList
-            data={categories}
-            keyExtractor={category => String(category.id)}
-            renderItem={({ item }) => (
-              <ButtonMenu>
-                <TextButton>{String(item.title).toUpperCase()}</TextButton>
-              </ButtonMenu>
-            )}
-          />
-        </ScrollMenu>
+
+        <Menu />
 
         <ItemList
           data={products}
@@ -172,3 +138,14 @@ export default class Main extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(CategoriesAction, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Main);

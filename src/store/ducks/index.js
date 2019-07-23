@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-// import { reducer as podcasts } from './podcasts';
+import { reducer as categories } from './categories';
 
-export default combineReducers({ teste: () => [] });
+export default combineReducers({ categories });
