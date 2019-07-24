@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -10,8 +12,6 @@ import CatalogAction from '~/store/ducks/catalog';
 
 import {
   Container,
-  Header,
-  HeaderTitle,
   ItemList,
   ItemFolder,
   ImageItem,
@@ -20,7 +20,15 @@ import {
   ItemPrice,
 } from './styles';
 
+const TabIcon = ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />;
+
 class Main extends Component {
+  static navigationOptions = () => ({
+    title: 'GoCommerce',
+    tabBarIcon: TabIcon,
+    showIcon: true,
+  });
+
   static propTypes = {
     products: PropTypes.arrayOf(
       PropTypes.shape({
@@ -38,10 +46,6 @@ class Main extends Component {
     const { products } = this.props;
     return (
       <Container>
-        <Header>
-          <HeaderTitle>GoCommerce</HeaderTitle>
-        </Header>
-
         <Menu />
 
         <ItemList

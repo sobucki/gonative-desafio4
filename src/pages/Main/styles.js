@@ -6,19 +6,6 @@ export const Container = styled.View`
   background-color: #fff;
 `;
 
-export const Header = styled.View`
-  height: 60;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const HeaderTitle = styled.Text`
-  color: ${colors.primary};
-  font-size: 16;
-  font-weight: bold;
-`;
-
 export const ItemList = styled.FlatList.attrs({
   columnWrapperStyle: { justifyContent: 'space-around' },
   numColumns: 2,
