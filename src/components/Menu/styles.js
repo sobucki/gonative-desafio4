@@ -1,15 +1,15 @@
 import styled from 'styled-components/native';
 import { metrics, colors } from '~/styles';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  height: 60px;
+  background-color: ${colors.primary};
+`;
 
 export const ScrollMenu = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-})`
-  height: 60px;
-  background-color: ${colors.primary};
-`;
+})``;
 
 export const MenuList = styled.FlatList.attrs({
   horizontal: true,

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import CatalogAction from '~/store/ducks/catalog';
 
 import {
-  ScrollMenu, MenuList, ButtonMenu, TextButton,
+  Container, ScrollMenu, MenuList, ButtonMenu, TextButton,
 } from './styles';
 
 class Menu extends Component {
@@ -41,20 +41,22 @@ class Menu extends Component {
   render() {
     const { categories, selectedCategory } = this.props;
     return (
-      <ScrollMenu>
-        <MenuList
-          data={categories}
-          keyExtractor={category => String(category.id)}
-          renderItem={({ item }) => (
-            <ButtonMenu
-              onPress={() => this.loadProductsByCategory(item.id)}
-              selected={selectedCategory && selectedCategory === item.id}
-            >
-              <TextButton>{String(item.title).toUpperCase()}</TextButton>
-            </ButtonMenu>
-          )}
-        />
-      </ScrollMenu>
+      <Container>
+        <ScrollMenu>
+          <MenuList
+            data={categories}
+            keyExtractor={category => String(category.id)}
+            renderItem={({ item }) => (
+              <ButtonMenu
+                onPress={() => this.loadProductsByCategory(item.id)}
+                selected={selectedCategory && selectedCategory === item.id}
+              >
+                <TextButton>{String(item.title).toUpperCase()}</TextButton>
+              </ButtonMenu>
+            )}
+          />
+        </ScrollMenu>
+      </Container>
     );
   }
 }

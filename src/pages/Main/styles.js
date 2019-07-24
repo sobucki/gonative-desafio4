@@ -3,7 +3,6 @@ import { metrics, colors } from '~/styles';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #fff;
 `;
 
 export const ItemList = styled.FlatList.attrs({

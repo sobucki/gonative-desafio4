@@ -42,8 +42,13 @@ class Main extends Component {
 
   componentDidMount() {}
 
+  openProductDetails(product) {
+    const { navigation } = this.props;
+    navigation.navigate('Details', { product });
+  }
+
   render() {
-    const { products } = this.props;
+    const { products, navigation } = this.props;
     return (
       <Container>
         <Menu />
@@ -52,7 +57,7 @@ class Main extends Component {
           data={products}
           keyExtractor={product => String(product.id)}
           renderItem={({ item }) => (
-            <ItemFolder>
+            <ItemFolder onPress={() => this.openProductDetails(item)}>
               <ImageItem source={{ uri: item.image }} />
               <ItemName>{item.brand}</ItemName>
               <ItemBrand>{item.name}</ItemBrand>

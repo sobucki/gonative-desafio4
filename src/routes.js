@@ -8,12 +8,14 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Main from '~/pages/Main';
+import Details from '~/pages/Details';
 import Cart from '~/pages/Cart';
 import { colors } from '~/styles';
 
 const MainStack = createStackNavigator(
   {
     Main,
+    Details,
   },
   {
     headerLayoutPreset: 'center',
@@ -29,9 +31,6 @@ const CartStack = createStackNavigator(
   },
   {
     headerLayoutPreset: 'center',
-    // defaultNavigationOptions: {
-    //   headerTintColor: colors.primary,
-    // },
   },
 );
 
