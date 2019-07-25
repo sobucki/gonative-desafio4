@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
-import { View, Image, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import CartAction from '~/store/ducks/cart';
+
 import {
   Container,
   DetailItem,
@@ -12,25 +14,38 @@ import {
   AddToCart,
   TextButton,
   ImageProduct,
+  OverallView,
+  InfoView,
+  PriceView,
 } from './styles';
 
-export default class Details extends Component {
+class Details extends Component {
   static navigationOptions = () => ({
     title: 'Detalhe do produto',
   });
 
+  addProduct(product) {
+    const { addProductToCart } = this.props;
+    addProductToCart(product);
+  }
+
   render() {
     const { navigation } = this.props;
     const product = navigation.getParam('product');
-    console.tron.log(product);
     return (
       <Container>
         <DetailItem>
           <ImageProduct source={{ uri: product.image }} />
-          <Name>{product.name}</Name>
-          <Brand>{product.brand}</Brand>
-          <Price>{product.price}</Price>
-          <AddToCart>
+          <OverallView>
+            <InfoView>
+              <Name>{product.name}</Name>
+              <Brand>{product.brand}</Brand>
+            </InfoView>
+            <PriceView>
+              <Price>{`R$${product.price}`}</Price>
+            </PriceView>
+          </OverallView>
+          <AddToCart onPress={() => this.addProduct(product)}>
             <TextButton>Adicionar ao carrinho</TextButton>
           </AddToCart>
         </DetailItem>
@@ -38,3 +53,9 @@ export default class Details extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators(CartAction, dispatch);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Details);

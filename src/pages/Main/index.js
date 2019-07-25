@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import Menu from '~/components/Menu';
 
 import CatalogAction from '~/store/ducks/catalog';
@@ -20,12 +19,9 @@ import {
   ItemPrice,
 } from './styles';
 
-const TabIcon = ({ tintColor }) => <Icon name="home" size={20} color={tintColor} />;
-
 class Main extends Component {
   static navigationOptions = () => ({
     title: 'GoCommerce',
-    tabBarIcon: TabIcon,
     showIcon: true,
   });
 
@@ -61,7 +57,7 @@ class Main extends Component {
               <ImageItem source={{ uri: item.image }} />
               <ItemName>{item.brand}</ItemName>
               <ItemBrand>{item.name}</ItemBrand>
-              <ItemPrice>{item.price}</ItemPrice>
+              <ItemPrice>{`R$${item.price}`}</ItemPrice>
             </ItemFolder>
           )}
         />
