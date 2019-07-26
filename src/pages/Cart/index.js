@@ -31,7 +31,9 @@ class Cart extends Component {
   };
 
   render() {
-    const { listOfProducts, updateQuantityProduct, removeProductInCart } = this.props;
+    const {
+      listOfProducts, subtotal, updateQuantityProduct, removeProductInCart,
+    } = this.props;
     return (
       <Container>
         <CartList
@@ -71,7 +73,7 @@ class Cart extends Component {
 
         <TotalView>
           <SubTotal>Subtotal</SubTotal>
-          <TotalValue>R$100,00</TotalValue>
+          <TotalValue>{`R$${subtotal}`}</TotalValue>
         </TotalView>
       </Container>
     );
@@ -79,6 +81,7 @@ class Cart extends Component {
 }
 const mapStateToProps = state => ({
   listOfProducts: state.cart.listOfProducts,
+  subtotal: state.cart.subtotal,
 });
 const mapDispatchToProps = dispatch => bindActionCreators(CartAction, dispatch);
 

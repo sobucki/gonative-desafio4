@@ -18,11 +18,22 @@ export default Creators;
  */
 export const INITIAL_STATE = Immutable({
   listOfProducts: [],
+  subtotal: 0,
 });
 
 /**
  * Reducer
  */
+
+function sumSubtotal(list) {
+  let sum = 0;
+
+  list.forEach((item) => {
+    sum += item.product.price * item.quantity;
+  });
+
+  return sum;
+}
 
 function findProductInList(list, product) {
   return list.find(p => p.product.id === product.id);
@@ -31,17 +42,24 @@ function findProductInList(list, product) {
 const addProduct = (state, { product }) => {
   let productLine = state.listOfProducts.find(p => p.product.id === product.id);
   const indexProduct = state.listOfProducts.indexOf(productLine);
+
   if (!productLine) {
     productLine = { product, quantity: 1 };
-    return state.merge({ listOfProducts: [...state.listOfProducts, productLine] });
+    return state.merge({
+      listOfProducts: [...state.listOfProducts, productLine],
+      subtotal: sumSubtotal([...state.listOfProducts, productLine]),
+    });
   }
 
   productLine = { ...productLine, quantity: productLine.quantity + 1 };
 
   const newListOfProducts = [...state.listOfProducts];
-  // replace old index
+
   newListOfProducts.splice(indexProduct, 1, productLine);
-  return state.merge({ listOfProducts: [...newListOfProducts] });
+  return state.merge({
+    listOfProducts: [...newListOfProducts],
+    subtotal: sumSubtotal(newListOfProducts),
+  });
 };
 
 const updateProduct = (state, { product, newQuantity }) => {
@@ -52,7 +70,10 @@ const updateProduct = (state, { product, newQuantity }) => {
   const newListOfProducts = [...state.listOfProducts];
   // replace old index
   newListOfProducts.splice(state.listOfProducts.indexOf(productLine), 1, productLine);
-  return state.merge({ listOfProducts: [...newListOfProducts] });
+  return state.merge({
+    listOfProducts: [...newListOfProducts],
+    subtotal: sumSubtotal(newListOfProducts),
+  });
 };
 
 const removeProduct = (state, { product }) => {
@@ -61,7 +82,10 @@ const removeProduct = (state, { product }) => {
   const newListOfProducts = [...state.listOfProducts];
   // replace old index
   newListOfProducts.splice(state.listOfProducts.indexOf(productLine), 1);
-  return state.merge({ listOfProducts: [...newListOfProducts] });
+  return state.merge({
+    listOfProducts: [...newListOfProducts],
+    subtotal: sumSubtotal(newListOfProducts),
+  });
 };
 
 export const reducer = createReducer(INITIAL_STATE, {
